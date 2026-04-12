@@ -124,4 +124,219 @@ Direct impact:
 > “The objective of this project is to build a churn prediction model at the renewal level, using customer interaction data from billing, renewal calls, emails, and customer care systems. The model aims to identify customers likely to churn, enabling proactive retention strategies.”
 
 
-# STEP 2: Data Understanding
+# STEP 5
+
+Which columns are we selecting and WHY
+
+---
+
+# 🔹 1. BILLINGS DATASET
+
+---
+
+## ✅ Columns we SELECT
+
+### 🟢 Core (must)
+
+* `Co_Ref` → join key
+* `Prospect_Renewal_Date` → time anchor
+* `cutoff_date` / `window_start` → filtering
+* `churn` → target
+
+---
+
+### 🟡 Useful features (keep for now)
+
+* pricing / band
+* connection count
+* payment info
+
+---
+
+## ❌ Why NOT all columns?
+
+Because:
+
+* IDs → no predictive value
+* system columns → noise
+* leakage columns → dangerous
+
+---
+
+# 🔹 2. RENEWAL CALLS (MOST IMPORTANT)
+
+---
+
+## ✅ Columns we SELECT
+
+### 🟢 Core
+
+* `Co_Ref` → join
+* `Call_Date` → time filtering
+
+---
+
+### 🟢 Behavioral signals (VERY IMPORTANT)
+
+* competitor mention
+* cancellation intent
+* price discussion
+* agent response
+* customer reaction
+
+---
+
+## ❌ Why not others?
+
+* metadata columns → useless
+* IDs → no value
+* timestamps (beyond Call_Date) → redundant
+
+---
+
+## 🔥 Why this dataset matters most
+
+Because:
+
+```text
+Customer decision happens here
+```
+
+---
+
+# 🔹 3. CC CALLS
+
+---
+
+## ✅ Columns we SELECT
+
+### 🟢 Core
+
+* `Co_Ref`
+* `Call_Date`
+
+---
+
+### 🟡 Signals
+
+* complaints
+* issues
+* sentiment
+* urgency
+
+---
+
+## ❌ Why not all?
+
+* some columns sparse
+* some irrelevant to churn
+
+---
+
+## 🧠 Role of this dataset
+
+👉 Shows **customer pain before renewal**
+
+---
+
+# 🔹 4. EMAILS
+
+---
+
+## ✅ Columns we SELECT
+
+### 🟢 Core
+
+* `Co_Ref`
+
+---
+
+### 🟢 Signals
+
+* sentiment score
+* dissatisfaction
+* payment intention
+* delays
+* engagement
+
+---
+
+### 🟢 Filter
+
+* `Time_to_Renewal`:
+
+  * `prior_year`
+  * `45_out`
+
+---
+
+## ❌ Why not others?
+
+* later stages → leakage
+* irrelevant CRM fields
+
+---
+
+# 🎯 Summary Table (IMPORTANT)
+
+| Dataset       | Columns Used           | Why               |
+| ------------- | ---------------------- | ----------------- |
+| billings      | id, target, date       | base + target     |
+| renewal_calls | behavior + date        | strongest signals |
+| cc_calls      | complaints + date      | customer issues   |
+| emails        | sentiment + engagement | soft signals      |
+
+---
+
+# 🧠 Core Philosophy
+
+---
+
+## ✔ We select columns based on:
+
+```text
+Does this column help explain churn?
+```
+
+---
+
+## ✔ We avoid columns that:
+
+```text
+Do not influence customer decision
+```
+
+---
+
+# 🔥 Example
+
+### ✔ Good feature:
+
+* `competitor_mentioned`
+  👉 Direct churn signal
+
+---
+
+### ❌ Bad feature:
+
+* `call_id`
+  👉 Just identifier
+
+---
+
+# 🎯 Final Understanding
+
+---
+
+## 🧠 Step 5 is about:
+
+```text
+Selecting SIGNAL columns
+not ALL columns
+```
+
+
+
+
+
+

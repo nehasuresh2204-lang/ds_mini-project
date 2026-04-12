@@ -20,3 +20,12 @@ Workflow
 14. Hyperparameter Tuning
 15. Final Evaluation
 16. Explainability
+
+
+Install in terminal:
+
+pip install pandas numpy matplotlib seaborn scikit-learn jupyter ipykernel xgboost lightgbm shap scipy openpyxl
+
+Then run:
+
+python -m ipykernel install --user --name=ds_env

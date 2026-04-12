@@ -1,0 +1,127 @@
+# STEP 1: Business Understanding
+
+## 1.1 Objective of the Project
+
+Goal is to:
+    To predict whether a customer will churn (not renew) their subscription.
+More specifically:
+    Predict churn for each renewal cycle of a customer
+
+## 1.2 Business Context (What the company does)
+
+The company:
+* Provides a subscription / accreditation service
+* Customers must renew periodically
+* Before renewal:
+    Customers interact via:
+    * billing system
+    * renewal calls
+    * emails
+    * customer care
+
+If customer does NOT renew → churn
+
+## 1.3 Problem Statement (Clean version)
+
+Build a model that predicts whether a customer will churn, using behavioral and interaction data collected around the renewal period.
+
+
+## 1.4 Time Definition (CRITICAL)
+
+This is the most important part
+
+You are working with:
+    Renewal_Date  → the anchor point
+
+And your feature window is:
+    Last 45 days before renewal
+
+
+## 1.5 Target Variable
+
+From `billings`:
+
+* `Prospect_Outcome`
+
+Convert to:
+    Churned → 1
+    Won     → 0
+
+Drop:
+    Open (not final outcome)
+
+## 1.6 Unit of Analysis
+
+This is VERY IMPORTANT:
+
+1 row = 1 customer + 1 renewal cycle
+
+NOT:
+* per call
+* per email
+* per day
+
+## 1.7 Data Sources (4 datasets)
+
+You are given:
+
+### 1️. `billings`
+
+* Customer details
+* Renewal date
+* Payment & pricing info
+* Final outcome (target)
+
+### 2️. `renewal_calls`
+
+* Conversations during renewal
+* Signals:
+  * cancellation intent
+  * competitor mention
+  * price discussion
+
+### 3️. `emails`
+
+* CRM/email signals
+* Already grouped by:
+  * prior_year
+  * 45_out
+
+
+### 4️. `cc_calls`
+
+* Customer support history
+* Complaints, issues, sentiment
+
+
+## 1.8 Key Business Assumptions
+
+* Customers who complain more → churn more
+* Competitor mentions → higher churn
+* Price discussions → churn
+* Negative sentiment → churn
+* Low engagement → churn
+
+
+## 1.9 Business Value
+
+Why this model matters:
+
+* Identify high-risk customers early
+* Allow:
+  * targeted offers
+  * discounts
+  * retention calls
+
+Direct impact:
+
+* Reduce churn
+* Increase revenue
+
+
+## 1.10 Final Summary (You can use this in report)
+
+> “The objective of this project is to build a churn prediction model at the renewal level, using customer interaction data from billing, renewal calls, emails, and customer care systems. The model aims to identify customers likely to churn, enabling proactive retention strategies.”
+
+
+# STEP 2: Data Understanding

@@ -335,8 +335,55 @@ Selecting SIGNAL columns
 not ALL columns
 ```
 
+Step 14 - Baseline
 
+- Simple models (Logistic Regression, small Decision Tree)
+- Quick check: Do features work?
+- Check overfitting (train vs test)
+- Get reference metrics (accuracy, recall, AUC)
 
+Step 15 → Improve the SAME models
 
+✔ Tune hyperparameters (regularization, tree depth)
+✔ Fix over/underfitting observed in Step 14
+✔ Improve recall for churn
 
+Step 16 Advanced models
 
+✔ Random Forest / XGBoost
+✔ Capture non-linear patterns
+✔ Compare vs baseline (did we really improve?)
+
+1) Debugging clarity
+If Logistic already performs well → features are strong ✔
+If all models perform poorly → feature/data issue ❌
+2) Honest comparison
+Baseline AUC = 0.78  
+XGBoost AUC = 0.82  
+
+👉 You can prove improvement ✔
+
+If you jump directly to XGBoost:
+
+You don’t know if 0.82 is good or bad ❌
+
+3) Overfitting detection
+
+Simple models make it easy to see:
+
+Train = 0.75, Test = 0.73 → good ✔
+
+Complex models might hide:
+
+Train = 0.95, Test = 0.72 → overfitting ❌
+
+4) Project/storytelling (very important)
+
+Interview or presentation:
+
+✔ Started with baseline
+✔ Identified issues
+✔ Improved step-by-step
+✔ Compared models
+
+👉 This is expected workflow
